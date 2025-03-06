@@ -45,10 +45,10 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   // Track which days are completed
   final List<bool> _completedDays = List.generate(30, (index) => false);
-  
+
   // Current selected navigation index
   int _selectedIndex = 0;
-  
+
   // Navigate to day's workout details
   void _navigateToDay(int day) {
     showDialog(
@@ -65,7 +65,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 });
                 Navigator.of(context).pop();
               },
-              child: Text(_completedDays[day] ? 'Mark Incomplete' : 'Mark Complete'),
+              child: Text(
+                _completedDays[day] ? 'Mark Incomplete' : 'Mark Complete',
+              ),
             ),
             TextButton(
               onPressed: () {
@@ -78,7 +80,7 @@ class _MyHomePageState extends State<MyHomePage> {
       },
     );
   }
-  
+
   // Handle bottom navigation
   void _onItemTapped(int index) {
     setState(() {
@@ -89,12 +91,9 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: _selectedIndex == 0 
-          ? _buildHomeScreen() 
-          : _buildPlaceholderScreen(),
+      appBar: AppBar(title: Text(widget.title)),
+      body:
+          _selectedIndex == 0 ? _buildHomeScreen() : _buildPlaceholderScreen(),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         items: const <BottomNavigationBarItem>[
@@ -121,7 +120,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
-  
+
   Widget _buildHomeScreen() {
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16.0),
@@ -154,7 +153,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
           ),
-          
+
           // Current progress indicator
           Padding(
             padding: const EdgeInsets.only(bottom: 16.0),
@@ -189,19 +188,16 @@ class _MyHomePageState extends State<MyHomePage> {
               ],
             ),
           ),
-          
+
           // 30-day grid
           const Padding(
             padding: EdgeInsets.only(bottom: 8.0),
             child: Text(
               '30-Day Workout Plan',
-              style: TextStyle(
-                fontSize: 20.0,
-                fontWeight: FontWeight.bold,
-              ),
+              style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
             ),
           ),
-          
+
           GridView.builder(
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
@@ -225,7 +221,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Text(
                       '${index + 1}',
                       style: TextStyle(
-                        color: _completedDays[index] ? Colors.white : Colors.black,
+                        color:
+                            _completedDays[index] ? Colors.white : Colors.black,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -234,9 +231,9 @@ class _MyHomePageState extends State<MyHomePage> {
               );
             },
           ),
-          
+
           const SizedBox(height: 20),
-          
+
           // Today's workout shortcut
           const Card(
             child: Padding(
@@ -272,15 +269,15 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
-  
+
   Widget _buildPlaceholderScreen() {
     final List<String> titles = [
       'Workouts',
       'Exercises Library',
       'Your Progress',
-      'Settings'
+      'Settings',
     ];
-    
+
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -288,35 +285,30 @@ class _MyHomePageState extends State<MyHomePage> {
           Icon(
             [
               Icons.calendar_today,
-              Icons.fitness_center, 
-              Icons.bar_chart, 
-              Icons.settings
+              Icons.fitness_center,
+              Icons.bar_chart,
+              Icons.settings,
             ][_selectedIndex],
             size: 80,
-            color: Colors.green.withOpacity(0.7),
+            color: const Color.fromRGBO(76, 175, 80, 0.7),
           ),
-          
+
           const SizedBox(height: 20),
-          
+
           Text(
             titles[_selectedIndex],
-            style: const TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-            ),
+            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
-          
+
           const SizedBox(height: 16),
-          
+
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 32.0),
             child: Text(
               'This ${titles[_selectedIndex].toLowerCase()} section is under development. '
               'Check back soon for more features!',
               textAlign: TextAlign.center,
-              style: const TextStyle(
-                fontSize: 16,
-              ),
+              style: const TextStyle(fontSize: 16),
             ),
           ),
         ],
